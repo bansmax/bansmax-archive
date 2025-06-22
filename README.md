@@ -1,4 +1,4 @@
-# Digital Resource Archive
+# BAnsMax-Archive | Digital Resource Archive
 
 Welcome to the **Digital Resource Archive** – a thoughtfully curated collection of valuable websites, applications, and tools, all presented with a distinctive retro aesthetic. This archive serves as a personal reference library, designed to assist you in discovering, exploring, and organising a wide range of digital resources to support your professional, creative, and personal projects.
 
