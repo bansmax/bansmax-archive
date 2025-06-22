@@ -306,6 +306,13 @@
         .win98-link { color: #0000FF; text-decoration: underline; }
         .win98-link:visited { color: #800080; }
 
+        a:visited,
+.win98-link:visited,
+.sidebar-link:visited,
+.sidebar-home-link:visited {
+  color: #0000FF !important;
+}
+
         .win98-status-bar {
             background-color: #C0C0C0; 
             padding: 2px 3px;
@@ -382,7 +389,6 @@
 
 
         #suggestToolFormContainer.win98-window, 
-        #aiResponseDialog.win98-window,
         .generic-dialog.win98-window,
         #preferencesDialog.win98-window { 
             margin: 10px auto; 
@@ -416,7 +422,7 @@
         }
         .form-actions .win98-button { margin-left: 5px; text-align:right; } 
         
-        #aiResponseDialogContent, .generic-dialog-content { 
+        .generic-dialog-content { 
             padding: 10px; 
             background-color: #FFFFFF; 
             max-height: 250px; 
@@ -488,6 +494,14 @@
             font-weight: bold; /* Make Home link bold */
             margin-bottom: 8px; /* Add some space below Home */
          }
+
+        .win98-button,
+.win98-button:visited,
+.win98-button:active,
+.win98-button:focus {
+  color: #000 !important;
+  text-decoration: none !important;
+}
 
     </style>
 </head>
@@ -567,19 +581,6 @@
                 </form>
             </div>
 
-            <div id="aiResponseDialog" class="win98-window generic-dialog" style="display: none; z-index: 1010;">
-                <div class="win98-title-bar" style="padding: 2px 4px; font-size: 11px;">
-                    <span id="aiResponseDialogTitle" class="win98-title-bar-text">AI Response</span>
-                    <div class="win98-title-bar-controls">
-                        <span id="closeAiResponseDialogBtn" title="Close">r</span>
-                    </div>
-                </div>
-                <div id="aiResponseDialogContent"></div>
-                <div class="dialog-actions">
-                    <button id="okAiResponseDialogBtn" class="win98-button primary">OK</button>
-                </div>
-            </div>
-
             <div id="genericDialog" class="win98-window generic-dialog" style="display: none; z-index: 1005;">
                 <div class="win98-title-bar" style="padding: 2px 4px; font-size: 11px;">
                     <span id="genericDialogTitle" class="win98-title-bar-text">Dialog</span>
@@ -640,7 +641,6 @@
                     <a href="#" class="sidebar-link" data-category="Downloading">Downloading</a>
                     <a href="#" class="sidebar-link" data-category="Educational">Educational</a>
                     <a href="#" class="sidebar-link" data-category="Gaming / Emulation">Gaming / Emulation</a>
-                    <!-- Removed: Graphics / Design, Internet / Communication, Multimedia Creation, Productivity / Office -->
                     <a href="#" class="sidebar-link" data-category="Linux / macOS">Linux / macOS</a>
                     <a href="#" class="sidebar-link" data-category="Miscellaneous">Miscellaneous</a>
                     <a href="#" class="sidebar-link" data-category="Movies / TV / Anime">Movies / TV / Anime</a>
@@ -695,6 +695,13 @@
 
         const defaultToolsData = [
             // Adblocking / Privacy
+            { id: 'adblock_plucky', title: "Plucky - Local Content Filter", toolName: "Plucky", toolLink: "https://github.com/pluckyapp/plucky", author: "Plucky Team", category: "Adblocking / Privacy", content: "A local content filter for Windows, macOS, and Linux. Blocks ads, trackers, and malicious domains at the system level.", createdAt: { seconds: Math.floor(new Date('2025-05-20T09:46:00Z').getTime() / 1000) } },
+            { id: 'adblock_blokada', title: "Blokada - Mobile Ad Blocker", toolName: "Blokada", toolLink: "https://blokada.org/", author: "Blokada Team", category: "Adblocking / Privacy", content: "Free and open-source ad blocker for Android and iOS. Blocks ads, trackers, and malware.", createdAt: { seconds: Math.floor(new Date('2025-05-20T09:45:00Z').getTime() / 1000) } },
+            { id: 'adblock_pihole', title: "Pi-hole - Network-wide Ad Blocker", toolName: "Pi-hole", toolLink: "https://pi-hole.net/", author: "Pi-hole Team", category: "Adblocking / Privacy", content: "A DNS sinkhole that protects your entire network from ads and trackers. Runs on Raspberry Pi and other devices.", createdAt: { seconds: Math.floor(new Date('2025-05-20T09:44:00Z').getTime() / 1000) } },
+            { id: 'adblock_simplednscrypt', title: "Simple DNSCrypt - DNS Encryption & Filtering", toolName: "Simple DNSCrypt", toolLink: "https://simplednscrypt.org/", author: "bitbeans", category: "Adblocking / Privacy", content: "Easy-to-use DNSCrypt client for Windows. Encrypts DNS traffic and supports blocklists.", createdAt: { seconds: Math.floor(new Date('2025-05-20T09:43:00Z').getTime() / 1000) } },
+            { id: 'adblock_privacypossum', title: "Privacy Possum - Anti-Tracking Extension", toolName: "Privacy Possum", toolLink: "https://privacypossum.github.io/", author: "cowlicks", category: "Adblocking / Privacy", content: "Browser extension that reduces and falsifies data collected by trackers.", createdAt: { seconds: Math.floor(new Date('2025-05-20T09:42:00Z').getTime() / 1000) } },
+            { id: 'adblock_clearurls', title: "ClearURLs - Remove Tracking from URLs", toolName: "ClearURLs", toolLink: "https://clearurls.xyz/", author: "Kevin R.", category: "Adblocking / Privacy", content: "Automatically removes tracking elements from URLs to protect your privacy.", createdAt: { seconds: Math.floor(new Date('2025-05-20T09:41:00Z').getTime() / 1000) } },
+            { id: 'adblock_no_script', title: "NoScript - Script Blocker", toolName: "NoScript", toolLink: "https://noscript.net/", author: "Giorgio Maone", category: "Adblocking / Privacy", content: "Browser extension that allows JavaScript, Java, and other executable content to run only from trusted domains.", createdAt: { seconds: Math.floor(new Date('2025-05-20T09:40:00Z').getTime() / 1000) } },
             { id: 'adblock_ublock', title: "uBlock Origin - Lightweight Ad Blocker", toolName: "uBlock Origin", toolLink: "https://github.com/gorhill/uBlock#ublock-origin", author: "R. Hill & contributors", category: "Adblocking / Privacy", content: "Efficient, wide-spectrum content blocker. Easy on CPU and memory.", createdAt: { seconds: Math.floor(new Date('2025-05-20T10:00:00Z').getTime() / 1000) } },
             { id: 'adblock_privacy_badger', title: "Privacy Badger - Stop Invisible Trackers", toolName: "Privacy Badger", toolLink: "https://privacybadger.org/", author: "EFF", category: "Adblocking / Privacy", content: "Automatically learns to block invisible trackers based on behavior.", createdAt: { seconds: Math.floor(new Date('2025-05-20T09:59:00Z').getTime() / 1000) } },
             { id: 'adblock_brave', title: "Brave Browser - Private & Secure", toolName: "Brave Browser", toolLink: "https://brave.com/", author: "Brave Software", category: "Adblocking / Privacy", content: "Blocks ads and trackers by default. Chromium-based.", createdAt: { seconds: Math.floor(new Date('2025-05-20T09:58:00Z').getTime() / 1000) } },
@@ -706,8 +713,11 @@
             { id: 'adblock_decentraleyes', title: "Decentraleyes - Local CDN Emulation", toolName: "Decentraleyes", toolLink: "https://decentraleyes.org/", author: "Thomas Rientjes", category: "Adblocking / Privacy", content: "Protects against tracking via 'free' CDNs by emulating them locally.", createdAt: { seconds: Math.floor(new Date('2025-05-20T09:52:00Z').getTime() / 1000) } },
             { id: 'adblock_privacytools_io', title: "PrivacyTools.io - Encryption & Privacy Resources", toolName: "PrivacyTools.io", toolLink: "https://www.privacytools.io/", author: "PrivacyTools Team", category: "Adblocking / Privacy", content: "Provides services, tools and knowledge to protect your privacy against global mass surveillance.", createdAt: { seconds: Math.floor(new Date('2025-05-20T09:51:00Z').getTime() / 1000) } },
             { id: 'adblock_ghostery', title: "Ghostery – Privacy Ad Blocker", toolName: "Ghostery", toolLink: "https://www.ghostery.com/", author: "Ghostery GmbH", category: "Adblocking / Privacy", content: "Browser extension that blocks ads, stops trackers and speeds up websites.", createdAt: { seconds: Math.floor(new Date('2025-05-20T09:50:00Z').getTime() / 1000) } },
+            { id: 'adblock_kiwi_browser', title: "Kiwi Browser - Ad Blocker & Customization", toolName: "Kiwi Browser", toolLink: "https://kiwibrowser.com/", author: "Geometry OU", category: "Adblocking / Privacy", content: "Android browser with built-in ad blocker and extensive customization options.", createdAt: { seconds: Math.floor(new Date('2025-05-20T09:49:00Z').getTime() / 1000) } },
+            { id: 'adblock_ghostery_privacy_browser', title: "Ghostery Privacy Browser", toolName: "Ghostery Privacy Browser", toolLink: "https://www.ghostery.com/privacy-browser", author: "Ghostery GmbH", category: "Adblocking / Privacy", content: "A privacy-focused browser with built-in ad blocking and tracker protection.", createdAt: { seconds: Math.floor(new Date('2025-05-20T09:48:00Z').getTime() / 1000) } },
+            { id: 'adblock_1blocker', title: "1Blocker - Block Ads & Trackers", toolName: "1Blocker", toolLink: "https://1blocker.com/", author: "Yegor Saksonov", category: "Adblocking / Privacy", content: "Powerful ad and tracker blocker for Safari on iOS and macOS.", createdAt: { seconds: Math.floor(new Date('2025-05-20T09:47:00Z').getTime() / 1000) } },
             
-            // Artificial Intelligence 
+            // Artificial Intelligence  
             { id: 'ai_hf_spaces', title: "Hugging Face Spaces - AI Demos", toolName: "Hugging Face Spaces", toolLink: "https://huggingface.co/spaces", author: "Hugging Face", category: "Artificial Intelligence", content: "Platform to explore, run, and share AI models and demos.", createdAt: { seconds: Math.floor(new Date('2025-05-19T10:00:00Z').getTime() / 1000) } },
             { id: 'ai_colab', title: "Google Colab - Free Jupyter Notebooks", toolName: "Google Colaboratory", toolLink: "https://colab.research.google.com/", author: "Google", category: "Artificial Intelligence", content: "Free cloud-based Jupyter notebook environment for AI/ML.", createdAt: { seconds: Math.floor(new Date('2025-05-19T09:59:00Z').getTime() / 1000) } },
             { id: 'ai_tf_playground', title: "TensorFlow Playground - Neural Networks", toolName: "TensorFlow Playground", toolLink: "https://playground.tensorflow.org/", author: "Google Brain Team", category: "Artificial Intelligence", content: "Tinker with a neural network directly in your browser.", createdAt: { seconds: Math.floor(new Date('2025-05-19T09:58:00Z').getTime() / 1000) } },
@@ -720,7 +730,27 @@
             { id: 'ai_poe_com', title: "Poe.com - AI Chatbots Platform", toolName: "Poe", toolLink: "https://poe.com/", author: "Quora", category: "Artificial Intelligence", content: "Platform to access and use various AI chatbots like ChatGPT, Claude, and more.", createdAt: { seconds: Math.floor(new Date('2025-05-19T09:51:00Z').getTime() / 1000) } },
             { id: 'ai_huggingchat', title: "HuggingChat - Open Source AI Chat", toolName: "HuggingChat", toolLink: "https://huggingface.co/chat/", author: "Hugging Face", category: "Artificial Intelligence", content: "An open-source alternative to ChatGPT, powered by various community models.", createdAt: { seconds: Math.floor(new Date('2025-05-19T09:50:00Z').getTime() / 1000) } },
             { id: 'ai_paperswithcode', title: "Papers With Code - AI Research", toolName: "Papers With Code", toolLink: "https://paperswithcode.com/", author: "Meta AI Research & Community", category: "Artificial Intelligence", content: "The latest in Machine Learning, code, and evaluation tables for research papers.", createdAt: { seconds: Math.floor(new Date('2025-05-19T09:49:00Z').getTime() / 1000) } },
-            
+            { id: 'ai_openai_playground', title: "OpenAI Playground", toolName: "OpenAI Playground", toolLink: "https://platform.openai.com/playground", author: "OpenAI", category: "Artificial Intelligence", content: "Test and experiment with OpenAI's language models in your browser.", createdAt: { seconds: Math.floor(new Date('2025-05-19T09:48:00Z').getTime() / 1000) } },
+            { id: 'ai_replicate', title: "Replicate - Run ML Models", toolName: "Replicate", toolLink: "https://replicate.com/", author: "Replicate", category: "Artificial Intelligence", content: "Run open-source machine learning models in the cloud, no setup required.", createdAt: { seconds: Math.floor(new Date('2025-05-19T09:47:00Z').getTime() / 1000) } },
+            { id: 'ai_koboldai', title: "KoboldAI - Local AI Text Generation", toolName: "KoboldAI", toolLink: "https://koboldai.net/", author: "KoboldAI Team", category: "Artificial Intelligence", content: "A locally running web UI for AI text generation with various models.", createdAt: { seconds: Math.floor(new Date('2025-05-19T09:46:00Z').getTime() / 1000) } },
+            { id: 'ai_flowgpt', title: "FlowGPT - Prompt Sharing", toolName: "FlowGPT", toolLink: "https://flowgpt.com/", author: "FlowGPT", category: "Artificial Intelligence", content: "Discover, share, and use the best AI prompts for ChatGPT and other models.", createdAt: { seconds: Math.floor(new Date('2025-05-19T09:45:00Z').getTime() / 1000) } },
+            { id: 'ai_deepai', title: "DeepAI - Free AI APIs", toolName: "DeepAI", toolLink: "https://deepai.org/", author: "DeepAI", category: "Artificial Intelligence", content: "A collection of free AI APIs for text, image, and video processing.", createdAt: { seconds: Math.floor(new Date('2025-05-19T09:44:00Z').getTime() / 1000) } },
+            { id: 'ai_lexica', title: "Lexica - Stable Diffusion Search", toolName: "Lexica", toolLink: "https://lexica.art/", author: "Lexica", category: "Artificial Intelligence", content: "Search and explore millions of Stable Diffusion images and prompts.", createdAt: { seconds: Math.floor(new Date('2025-05-19T09:43:00Z').getTime() / 1000) } },
+            { id: 'ai_novelai', title: "NovelAI - AI Storytelling", toolName: "NovelAI", toolLink: "https://novelai.net/", author: "NovelAI", category: "Artificial Intelligence", content: "AI-powered storytelling and text generation platform for creative writing.", createdAt: { seconds: Math.floor(new Date('2025-05-19T09:42:00Z').getTime() / 1000) } },
+            { id: 'ai_deepdreamgenerator', title: "Deep Dream Generator", toolName: "Deep Dream Generator", toolLink: "https://deepdreamgenerator.com/", author: "Aifnet", category: "Artificial Intelligence", content: "Create unique, dream-like images using neural networks.", createdAt: { seconds: Math.floor(new Date('2025-05-19T09:41:00Z').getTime() / 1000) } },
+            { id: 'ai_hf_spaces', title: "Hugging Face Spaces - AI Demos", toolName: "Hugging Face Spaces", toolLink: "https://huggingface.co/spaces", author: "Hugging Face", category: "Artificial Intelligence", content: "Platform to explore, run, and share AI models and demos.", createdAt: { seconds: Math.floor(new Date('2025-05-19T10:00:00Z').getTime() / 1000) } },
+            { id: 'ai_colab', title: "Google Colab - Free Jupyter Notebooks", toolName: "Google Colaboratory", toolLink: "https://colab.research.google.com/", author: "Google", category: "Artificial Intelligence", content: "Free cloud-based Jupyter notebook environment for AI/ML.", createdAt: { seconds: Math.floor(new Date('2025-05-19T09:59:00Z').getTime() / 1000) } },
+            { id: 'ai_tf_playground', title: "TensorFlow Playground - Neural Networks", toolName: "TensorFlow Playground", toolLink: "https://playground.tensorflow.org/", author: "Google Brain Team", category: "Artificial Intelligence", content: "Tinker with a neural network directly in your browser.", createdAt: { seconds: Math.floor(new Date('2025-05-19T09:58:00Z').getTime() / 1000) } },
+            { id: 'ai_perplexity_ai', title: "Perplexity AI - Conversational Search", toolName: "Perplexity AI", toolLink: "https://www.perplexity.ai/", author: "Perplexity AI", category: "Artificial Intelligence", content: "An AI-powered search engine that provides direct answers with citations.", createdAt: { seconds: Math.floor(new Date('2025-05-19T09:57:00Z').getTime() / 1000) } },
+            { id: 'ai_claude_ai', title: "Claude - AI Assistant", toolName: "Claude", toolLink: "https://claude.ai/", author: "Anthropic", category: "Artificial Intelligence", content: "A next-generation AI assistant for tasks and conversations.", createdAt: { seconds: Math.floor(new Date('2025-05-19T09:56:00Z').getTime() / 1000) } },
+            { id: 'ai_runwayml', title: "RunwayML - AI Magic Tools", toolName: "RunwayML", toolLink: "https://runwayml.com/", author: "Runway AI, Inc.", category: "Artificial Intelligence", content: "Suite of AI tools for art, video, and creative generation. Free tier available.", createdAt: { seconds: Math.floor(new Date('2025-05-19T09:55:00Z').getTime() / 1000) } },
+            { id: 'ai_leonardoai', title: "Leonardo.Ai - AI Asset Generation", toolName: "Leonardo.Ai", toolLink: "https://leonardo.ai/", author: "Leonardo.Ai", category: "Artificial Intelligence", content: "Platform for generating production-quality assets for creative projects with AI. Offers free daily credits.", createdAt: { seconds: Math.floor(new Date('2025-05-19T09:54:00Z').getTime() / 1000) } },
+            { id: 'ai_civitai', title: "Civitai - Open-Source AI Art Models", toolName: "Civitai", toolLink: "https://civitai.com/", author: "Civitai", category: "Artificial Intelligence", content: "A hub for sharing and discovering open-source AI art models, primarily for Stable Diffusion.", createdAt: { seconds: Math.floor(new Date('2025-05-19T09:53:00Z').getTime() / 1000) } },
+            { id: 'ai_stablediffonline', title: "Stable Diffusion Online", toolName: "Stable Diffusion Online", toolLink: "https://stablediffusiononline.com/", author: "Stability AI & Community", category: "Artificial Intelligence", content: "Free web UIs to generate images using Stable Diffusion models.", createdAt: { seconds: Math.floor(new Date('2025-05-19T09:52:00Z').getTime() / 1000) } },
+            { id: 'ai_poe_com', title: "Poe.com - AI Chatbots Platform", toolName: "Poe", toolLink: "https://poe.com/", author: "Quora", category: "Artificial Intelligence", content: "Platform to access and use various AI chatbots like ChatGPT, Claude, and more.", createdAt: { seconds: Math.floor(new Date('2025-05-19T09:51:00Z').getTime() / 1000) } },
+            { id: 'ai_huggingchat', title: "HuggingChat - Open Source AI Chat", toolName: "HuggingChat", toolLink: "https://huggingface.co/chat/", author: "Hugging Face", category: "Artificial Intelligence", content: "An open-source alternative to ChatGPT, powered by various community models.", createdAt: { seconds: Math.floor(new Date('2025-05-19T09:50:00Z').getTime() / 1000) } },
+            { id: 'ai_paperswithcode', title: "Papers With Code - AI Research", toolName: "Papers With Code", toolLink: "https://paperswithcode.com/", author: "Meta AI Research & Community", category: "Artificial Intelligence", content: "The latest in Machine Learning, code, and evaluation tables for research papers.", createdAt: { seconds: Math.floor(new Date('2025-05-19T09:49:00Z').getTime() / 1000) } },
+                
             // Movies / TV / Anime
             { id: 'movies_plex', title: "Plex - Personal Media Server", toolName: "Plex", toolLink: "https://www.plex.tv/", author: "Plex, Inc.", category: "Movies / TV / Anime", content: "Organize and stream your personal media library to any device.", createdAt: { seconds: Math.floor(new Date('2025-05-18T10:00:00Z').getTime() / 1000) } },
             { id: 'movies_kodi', title: "Kodi - Open Source Media Center", toolName: "Kodi (XBMC)", toolLink: "https://kodi.tv/", author: "XBMC Foundation", category: "Movies / TV / Anime", content: "Free, open-source media player. Highly customizable.", createdAt: { seconds: Math.floor(new Date('2025-05-18T09:59:00Z').getTime() / 1000) } },
@@ -732,6 +762,13 @@
             { id: 'movies_tautulli', title: "Tautulli - Plex Monitoring", toolName: "Tautulli", toolLink: "https://tautulli.com/", author: "Tautulli Team", category: "Movies / TV / Anime", content: "A 3rd party application that you can run alongside your Plex Media Server to monitor activity and track various statistics.", createdAt: { seconds: Math.floor(new Date('2025-05-18T09:53:00Z').getTime() / 1000) } },
             { id: 'movies_trakt_tv', title: "Trakt.tv - TV & Movie Tracking", toolName: "Trakt.tv", toolLink: "https://trakt.tv/", author: "Trakt", category: "Movies / TV / Anime", content: "Automatically track TV & movies you're watching. Get personalized recommendations.", createdAt: { seconds: Math.floor(new Date('2025-05-18T09:52:00Z').getTime() / 1000) } },
             { id: 'movies_letterboxd', title: "Letterboxd - Social Film Discovery", toolName: "Letterboxd", toolLink: "https://letterboxd.com/", author: "Letterboxd Limited", category: "Movies / TV / Anime", content: "Share your taste in film. Keep a diary of films you've seen, write reviews, and follow friends.", createdAt: { seconds: Math.floor(new Date('2025-05-18T09:51:00Z').getTime() / 1000) } },
+            { id: 'movies_crunchyroll', title: "Crunchyroll - Anime Streaming", toolName: "Crunchyroll", toolLink: "https://www.crunchyroll.com/", author: "Crunchyroll, LLC", category: "Movies / TV / Anime", content: "Watch popular anime shows and movies legally online. Free tier available with ads.", createdAt: { seconds: Math.floor(new Date('2025-05-18T09:50:00Z').getTime() / 1000) } },
+            { id: 'movies_tubi', title: "Tubi - Free Movies & TV", toolName: "Tubi", toolLink: "https://tubitv.com/", author: "Tubi, Inc.", category: "Movies / TV / Anime", content: "Free streaming service with thousands of movies and TV shows.", createdAt: { seconds: Math.floor(new Date('2025-05-18T09:49:00Z').getTime() / 1000) } },
+            { id: 'movies_pluto', title: "Pluto TV - Free Live TV & Movies", toolName: "Pluto TV", toolLink: "https://pluto.tv/", author: "Paramount Streaming", category: "Movies / TV / Anime", content: "Watch free live TV and on-demand movies and shows.", createdAt: { seconds: Math.floor(new Date('2025-05-18T09:48:00Z').getTime() / 1000) } },
+            { id: 'movies_watchcartoononline', title: "WatchCartoonOnline - Cartoons & Anime", toolName: "WatchCartoonOnline", toolLink: "https://www.wcostream.com/", author: "WCO Team", category: "Movies / TV / Anime", content: "Stream cartoons and anime series online for free.", createdAt: { seconds: Math.floor(new Date('2025-05-18T09:47:00Z').getTime() / 1000) } },
+            { id: 'movies_shoutfactorytv', title: "Shout! Factory TV", toolName: "Shout! Factory TV", toolLink: "https://www.shoutfactorytv.com/", author: "Shout! Factory", category: "Movies / TV / Anime", content: "Free streaming of cult classic TV, movies, and anime.", createdAt: { seconds: Math.floor(new Date('2025-05-18T09:46:00Z').getTime() / 1000) } },
+            { id: 'movies_opensubtitles', title: "OpenSubtitles - Subtitles Database", toolName: "OpenSubtitles", toolLink: "https://www.opensubtitles.org/", author: "OpenSubtitles", category: "Movies / TV / Anime", content: "Large database of subtitles for movies and TV shows in many languages.", createdAt: { seconds: Math.floor(new Date('2025-05-18T09:45:00Z').getTime() / 1000) } },
+            
             // Music / Podcasts / Radio
             { id: 'music_spotify_free', title: "Spotify (Free Tier) - Music & Podcasts", toolName: "Spotify Free", toolLink: "https://www.spotify.com/", author: "Spotify AB", category: "Music / Podcasts / Radio", content: "Access a vast library of music and podcasts with ads.", createdAt: { seconds: Math.floor(new Date('2025-05-17T10:00:00Z').getTime() / 1000) } },
             { id: 'music_audacity', title: "Audacity - Audio Editor & Recorder", toolName: "Audacity", toolLink: "https://www.audacityteam.org/", author: "The Audacity Team", category: "Music / Podcasts / Radio", content: "Free, open-source, cross-platform audio software.", createdAt: { seconds: Math.floor(new Date('2025-05-17T09:59:00Z').getTime() / 1000) } },
@@ -741,6 +778,7 @@
             { id: 'music_plexamp', title: "Plexamp - Plex Music Player", toolName: "Plexamp", toolLink: "https://plexamp.com/", author: "Plex Labs", category: "Music / Podcasts / Radio", content: "A beautiful, dedicated Plex music player with many features for audiophiles.", createdAt: { seconds: Math.floor(new Date('2025-05-17T09:55:00Z').getTime() / 1000) } },
             { id: 'music_pocket_casts', title: "Pocket Casts - Podcast Player", toolName: "Pocket Casts", toolLink: "https://www.pocketcasts.com/", author: "Automattic", category: "Music / Podcasts / Radio", content: "Podcast player for web and mobile with a free tier for listening.", createdAt: { seconds: Math.floor(new Date('2025-05-17T09:54:00Z').getTime() / 1000) } },
             { id: 'music_tunein_radio', title: "TuneIn Radio - Online Radio", toolName: "TuneIn Radio", toolLink: "https://tunein.com/", author: "TuneIn", category: "Music / Podcasts / Radio", content: "Listen to live sports, news, music, podcasts and radio stations from around the world.", createdAt: { seconds: Math.floor(new Date('2025-05-17T09:53:00Z').getTime() / 1000) } },
+            
             // Gaming / Emulation
             { id: 'gaming_retroarch', title: "RetroArch - Frontend for Emulators", toolName: "RetroArch", toolLink: "https://www.retroarch.com/", author: "Libretro Team", category: "Gaming / Emulation", content: "A frontend for emulators, game engines, and media players.", createdAt: { seconds: Math.floor(new Date('2025-05-16T10:00:00Z').getTime() / 1000) } },
             { id: 'gaming_steam_f2p', title: "Steam - Free-to-Play Games", toolName: "Steam (Free Games)", toolLink: "https://store.steampowered.com/genre/Free%20to%20Play/", author: "Valve Corporation", category: "Gaming / Emulation", content: "Access a large library of free-to-play games on the Steam platform.", createdAt: { seconds: Math.floor(new Date('2025-05-16T09:59:00Z').getTime() / 1000) } },
@@ -752,6 +790,7 @@
             { id: 'gaming_mame', title: "MAME - Arcade Emulator", toolName: "MAME", toolLink: "https://www.mamedev.org/", author: "MAME Team", category: "Gaming / Emulation", content: "Multiple Arcade Machine Emulator - preserves gaming history by preventing vintage games from being lost or forgotten.", createdAt: { seconds: Math.floor(new Date('2025-05-16T09:53:00Z').getTime() / 1000) } },
             { id: 'gaming_openemu', title: "OpenEmu - Emulator Frontend (macOS)", toolName: "OpenEmu", toolLink: "https://openemu.org/", author: "OpenEmu Team", category: "Gaming / Emulation", content: "A beautiful, user-friendly emulator frontend for macOS.", createdAt: { seconds: Math.floor(new Date('2025-05-16T09:52:00Z').getTime() / 1000) } },
             { id: 'gaming_scummvm', title: "ScummVM - Classic Adventure Game Interpreter", toolName: "ScummVM", toolLink: "https://www.scummvm.org/", author: "The ScummVM Team", category: "Gaming / Emulation", content: "Allows you to play many classic graphical point-and-click adventure games.", createdAt: { seconds: Math.floor(new Date('2025-05-16T09:51:00Z').getTime() / 1000) } },
+            
             // Books / Comics / Manga
             { id: 'books_calibre', title: "Calibre - E-book Management", toolName: "Calibre", toolLink: "https://calibre-ebook.com/", author: "Kovid Goyal", category: "Books / Comics / Manga", content: "Powerful e-book management software, library organizer, converter, and viewer.", createdAt: { seconds: Math.floor(new Date('2025-05-15T10:00:00Z').getTime() / 1000) } },
             { id: 'books_gutenberg', title: "Project Gutenberg - Free E-books", toolName: "Project Gutenberg", toolLink: "https://www.gutenberg.org/", author: "Project Gutenberg", category: "Books / Comics / Manga", content: "Over 70,000 free e-books, primarily older works with expired U.S. copyright.", createdAt: { seconds: Math.floor(new Date('2025-05-15T09:59:00Z').getTime() / 1000) } },
@@ -761,6 +800,7 @@
             { id: 'books_openlibrary', title: "Open Library - Digital Library", toolName: "Open Library", toolLink: "https://openlibrary.org/", author: "Internet Archive", category: "Books / Comics / Manga", content: "An open, editable library catalog, building towards a web page for every book ever published. Offers ebook lending.", createdAt: { seconds: Math.floor(new Date('2025-05-15T09:55:00Z').getTime() / 1000) } },
             { id: 'books_sumatrapdf', title: "Sumatra PDF - Lightweight PDF/Ebook Reader", toolName: "Sumatra PDF", toolLink: "https://www.sumatrapdfreader.org/free-pdf-reader.html", author: "Krzysztof Kowalczyk", category: "Books / Comics / Manga", content: "A free, open-source, lightweight PDF, eBook (ePub, Mobi), XPS, DjVu, CHM, Comic Book (CBZ and CBR) reader for Windows.", createdAt: { seconds: Math.floor(new Date('2025-05-15T09:54:00Z').getTime() / 1000) } },
             { id: 'books_manybooks', title: "ManyBooks.net - Free eBooks", toolName: "ManyBooks.net", toolLink: "https://manybooks.net/", author: "ManyBooks", category: "Books / Comics / Manga", content: "Browse through the PDBs and download them for free. Thousands of free eBooks.", createdAt: { seconds: Math.floor(new Date('2025-05-15T09:53:00Z').getTime() / 1000) } },
+            
             // Downloading
             { id: 'download_jdownloader', title: "JDownloader 2 - Download Manager", toolName: "JDownloader 2", toolLink: "https://jdownloader.org/", author: "AppWork GmbH", category: "Downloading", content: "Free, open-source download management tool for many one-click hosters.", createdAt: { seconds: Math.floor(new Date('2025-05-14T10:00:00Z').getTime() / 1000) } },
             { id: 'download_fdm', title: "Free Download Manager (FDM)", toolName: "Free Download Manager", toolLink: "https://www.freedownloadmanager.org/", author: "SoftDeluxe Ltd.", category: "Downloading", content: "Powerful modern download accelerator and organizer.", createdAt: { seconds: Math.floor(new Date('2025-05-14T09:59:00Z').getTime() / 1000) } },
@@ -768,6 +808,7 @@
             { id: 'download_motrix', title: "Motrix - Download Manager", toolName: "Motrix", toolLink: "https://motrix.app/", author: "Dr.Ryan", category: "Downloading", content: "Full-featured download manager supporting HTTP, FTP, BitTorrent, Magnet.", createdAt: { seconds: Math.floor(new Date('2025-05-14T09:57:00Z').getTime() / 1000) } },
             { id: 'download_wget', title: "GNU Wget - File Retriever (CLI)", toolName: "Wget", toolLink: "https://www.gnu.org/software/wget/", author: "GNU Project", category: "Downloading", content: "Free software package for retrieving files using HTTP, HTTPS, FTP and FTPS.", createdAt: { seconds: Math.floor(new Date('2025-05-14T09:56:00Z').getTime() / 1000) } },
             { id: 'download_aria2', title: "aria2 - Lightweight Downloader (CLI)", toolName: "aria2", toolLink: "https://aria2.github.io/", author: "Tatsuhiro Tsujikawa", category: "Downloading", content: "A lightweight multi-protocol & multi-source command-line download utility.", createdAt: { seconds: Math.floor(new Date('2025-05-14T09:55:00Z').getTime() / 1000) } },
+            
             // Torrenting
             { id: 'torrent_qbittorrent', title: "qBittorrent - Torrent Client", toolName: "qBittorrent", toolLink: "https://www.qbittorrent.org/", author: "The qBittorrent project", category: "Torrenting", content: "Free, open-source, ad-free, and lightweight BitTorrent client.", createdAt: { seconds: Math.floor(new Date('2025-05-13T10:00:00Z').getTime() / 1000) } },
             { id: 'torrent_transmission', title: "Transmission - BitTorrent Client", toolName: "Transmission", toolLink: "https://transmissionbt.com/", author: "Transmission Project", category: "Torrenting", content: "Fast, easy, and free BitTorrent client. Known for simplicity.", createdAt: { seconds: Math.floor(new Date('2025-05-13T09:59:00Z').getTime() / 1000) } },
@@ -777,6 +818,7 @@
             { id: 'torrent_picotorrent', title: "PicoTorrent - Lightweight Client (Windows)", toolName: "PicoTorrent", toolLink: "https://picotorrent.org/", author: "PicoTorrent Team", category: "Torrenting", content: "A lightweight, free and open source BitTorrent client for Windows.", createdAt: { seconds: Math.floor(new Date('2025-05-13T09:55:00Z').getTime() / 1000) } },
             { id: 'torrent_publicdomain', title: "Public Domain Torrents - Legal Torrents", toolName: "Public Domain Torrents", toolLink: "http://www.publicdomaintorrents.info/", author: "Various", category: "Torrenting", content: "A collection of movies that are in the public domain, available via torrents.", createdAt: { seconds: Math.floor(new Date('2025-05-13T09:54:00Z').getTime() / 1000) } },
             { id: 'torrent_legittorrents', title: "Legit Torrents - Legal Content", toolName: "Legit Torrents", toolLink: "http://www.legittorrents.info/", author: "Various", category: "Torrenting", content: "Find legally distributable torrents for various types of content.", createdAt: { seconds: Math.floor(new Date('2025-05-13T09:53:00Z').getTime() / 1000) } },
+            
             // Educational
             { id: 'edu_khanacademy', title: "Khan Academy - Free Online Courses", toolName: "Khan Academy", toolLink: "https://www.khanacademy.org/", author: "Khan Academy", category: "Educational", content: "Offers practice exercises, instructional videos, and a personalized learning dashboard.", createdAt: { seconds: Math.floor(new Date('2025-05-12T10:00:00Z').getTime() / 1000) } },
             { id: 'edu_anki', title: "Anki - Powerful Flashcards", toolName: "Anki", toolLink: "https://apps.ankiweb.net/", author: "Damien Elmes", category: "Educational", content: "Powerful, intelligent flashcard program. Free and open-source.", createdAt: { seconds: Math.floor(new Date('2025-05-12T09:59:00Z').getTime() / 1000) } },
@@ -790,6 +832,7 @@
             { id: 'edu_coursera_audit', title: "Coursera (Audit Courses)", toolName: "Coursera (Audit)", toolLink: "https://www.coursera.org/", author: "Coursera Inc.", category: "Educational", content: "Audit many courses for free to access lectures and materials.", createdAt: { seconds: Math.floor(new Date('2025-05-12T09:51:00Z').getTime() / 1000) } },
             { id: 'edu_wolframalpha', title: "Wolfram Alpha - Computational Knowledge", toolName: "Wolfram Alpha", toolLink: "https://www.wolframalpha.com/", author: "Wolfram Research", category: "Educational", content: "Computes answers using built-in data, algorithms, and methods. Free tier available.", createdAt: { seconds: Math.floor(new Date('2025-05-12T09:50:00Z').getTime() / 1000) } },
             { id: 'edu_projecteuler', title: "Project Euler - Math/Programming Problems", toolName: "Project Euler", toolLink: "https://projecteuler.net/", author: "Project Euler", category: "Educational", content: "A series of challenging mathematical/computer programming problems.", createdAt: { seconds: Math.floor(new Date('2025-05-12T09:49:00Z').getTime() / 1000) } },
+            
             // Android / iOS
             { id: 'android_newpipe', title: "NewPipe - YouTube Frontend (Android)", toolName: "NewPipe", toolLink: "https://newpipe.net/", author: "Team NewPipe", category: "Android / iOS", content: "A lightweight YouTube frontend for Android. No proprietary Google APIs.", createdAt: { seconds: Math.floor(new Date('2025-05-11T10:00:00Z').getTime() / 1000) } },
             { id: 'android_fdroid', title: "F-Droid - FOSS App Store (Android)", toolName: "F-Droid", toolLink: "https://f-droid.org/", author: "F-Droid Limited", category: "Android / iOS", content: "An installable catalogue of FOSS (Free and Open Source Software) applications for Android.", createdAt: { seconds: Math.floor(new Date('2025-05-11T09:59:00Z').getTime() / 1000) } },
@@ -800,6 +843,7 @@
             { id: 'android_protonvpn_mobile', title: "ProtonVPN (Free Tier)", toolName: "ProtonVPN Free", toolLink: "https://protonvpn.com/", author: "Proton AG", category: "Android / iOS", content: "Free VPN service with a focus on privacy and security. Limited free servers.", createdAt: { seconds: Math.floor(new Date('2025-05-11T09:54:00Z').getTime() / 1000) } },
             { id: 'android_inshot', title: "InShot - Video Editor (Mobile)", toolName: "InShot", toolLink: "https://inshot.com/", author: "InShot Inc.", category: "Android / iOS", content: "Popular mobile video editor with many features. Free version with watermark.", createdAt: { seconds: Math.floor(new Date('2025-05-11T09:53:00Z').getTime() / 1000) } },
             { id: 'android_adaway', title: "AdAway - Ad Blocker (Android, Root/Non-Root)", toolName: "AdAway", toolLink: "https://adaway.org/", author: "AdAway Team", category: "Android / iOS", content: "An open source ad blocker for Android using the hosts file. Requires root for hosts file modification, VPN mode for non-root.", createdAt: { seconds: Math.floor(new Date('2025-05-11T09:52:00Z').getTime() / 1000) } },
+            
             // Linux / macOS
             { id: 'linux_gimp', title: "GIMP - Image Editor", toolName: "GIMP", toolLink: "https://www.gimp.org/", author: "The GIMP Team", category: "Linux / macOS", content: "GNU Image Manipulation Program. Free & open-source raster graphics editor.", createdAt: { seconds: Math.floor(new Date('2025-05-10T10:00:00Z').getTime() / 1000) } },
             { id: 'linux_krita', title: "Krita - Digital Painting", toolName: "Krita", toolLink: "https://krita.org/en/", author: "Krita Foundation", category: "Linux / macOS", content: "Free and open-source professional-grade painting program.", createdAt: { seconds: Math.floor(new Date('2025-05-10T09:59:00Z').getTime() / 1000) } },
@@ -810,11 +854,13 @@
             { id: 'linux_stacer', title: "Stacer - Linux System Optimizer", toolName: "Stacer", toolLink: "https://github.com/oguzhaninan/Stacer", author: "Oğuzhan İNAN", category: "Linux / macOS", content: "Linux System Optimizer and Monitoring. Open Source.", createdAt: { seconds: Math.floor(new Date('2025-05-10T09:54:00Z').getTime() / 1000) } },
             { id: 'linux_macchina', title: "Macchina - System Info (macOS/Linux CLI)", toolName: "Macchina", toolLink: "https://github.com/Macchina-CLI/macchina", author: "Macchina-CLI", category: "Linux / macOS", content: "A system information frontend with an emphasis on performance and minimalism.", createdAt: { seconds: Math.floor(new Date('2025-05-10T09:53:00Z').getTime() / 1000) } },
             { id: 'linux_iterm2', title: "iTerm2 - Terminal Emulator (macOS)", toolName: "iTerm2", toolLink: "https://iterm2.com/", author: "George Nachman", category: "Linux / macOS", content: "A replacement for Terminal and the successor to iTerm. Feature-rich.", createdAt: { seconds: Math.floor(new Date('2025-05-10T09:52:00Z').getTime() / 1000) } },
+            
             // Non-English
             { id: 'noneng_deepl', title: "DeepL Translator", toolName: "DeepL", toolLink: "https://www.deepl.com/translator", author: "DeepL SE", category: "Non-English", content: "AI-powered translator known for its nuanced and accurate translations.", createdAt: { seconds: Math.floor(new Date('2025-05-09T10:00:00Z').getTime() / 1000) } },
             { id: 'noneng_aegisub', title: "Aegisub - Advanced Subtitle Editor", toolName: "Aegisub", toolLink: "http://www.aegisub.org/", author: "Aegisub contributors", category: "Non-English", content: "Cross-platform open source tool for creating and modifying subtitles.", createdAt: { seconds: Math.floor(new Date('2025-05-09T09:59:00Z').getTime() / 1000) } },
             { id: 'noneng_languagetool', title: "LanguageTool - Grammar & Spell Checker", toolName: "LanguageTool", toolLink: "https://languagetool.org/", author: "LanguageTooler GmbH", category: "Non-English", content: "Open source grammar, style, and spell checker. Supports many languages.", createdAt: { seconds: Math.floor(new Date('2025-05-09T09:58:00Z').getTime() / 1000) } },
             { id: 'noneng_anki_non_eng', title: "Anki for Language Learning", toolName: "Anki (Language Decks)", toolLink: "https://apps.ankiweb.net/", author: "Damien Elmes & Community", category: "Non-English", content: "Use Anki with community-shared decks for various languages.", createdAt: { seconds: Math.floor(new Date('2025-05-09T09:57:00Z').getTime() / 1000) } },
+            
             // Miscellaneous
             { id: 'misc_ventoy', title: "Ventoy - Bootable USB Creator", toolName: "Ventoy", toolLink: "https://www.ventoy.net/", author: "longpanda", category: "Miscellaneous", content: "Open-source tool to create bootable USB drive for ISO/WIM/IMG/VHD(x)/EFI files.", createdAt: { seconds: Math.floor(new Date('2025-05-08T10:00:00Z').getTime() / 1000) } },
             { id: 'misc_standardnotes', title: "Standard Notes - Private Notes App", toolName: "Standard Notes", toolLink: "https://standardnotes.com/", author: "Standard Notes", category: "Miscellaneous", content: "A free, open-source, and end-to-end encrypted notes app.", createdAt: { seconds: Math.floor(new Date('2025-05-08T09:59:00Z').getTime() / 1000) } },
@@ -824,6 +870,7 @@
             { id: 'misc_worldtimebuddy', title: "WorldTimeBuddy - Time Zone Converter", toolName: "WorldTimeBuddy", toolLink: "https://www.worldtimebuddy.com/", author: "Helloka", category: "Miscellaneous", content: "Convenient world clock, time zone converter, and online meeting scheduler.", createdAt: { seconds: Math.floor(new Date('2025-05-08T09:55:00Z').getTime() / 1000) } },
             { id: 'misc_drawio', title: "draw.io (diagrams.net) - Diagramming", toolName: "draw.io", toolLink: "https://app.diagrams.net/", author: "JGraph Ltd.", category: "Miscellaneous", content: "Free online diagram software for making flowcharts, process diagrams, org charts, UML, ER and network diagrams.", createdAt: { seconds: Math.floor(new Date('2025-05-08T09:54:00Z').getTime() / 1000) } },
             { id: 'misc_portableapps', title: "PortableApps.com - Portable Software", toolName: "PortableApps.com", toolLink: "https://portableapps.com/", author: "Rare Ideas, LLC", category: "Miscellaneous", content: "Platform for portable software, allowing you to carry your favorite apps on a USB drive.", createdAt: { seconds: Math.floor(new Date('2025-05-08T09:53:00Z').getTime() / 1000) } },
+            
             // Retro Computing / Abandonware
             { id: 'retro_wayback', title: "Internet Archive Wayback Machine", toolName: "Wayback Machine", toolLink: "https://archive.org/web/", author: "Internet Archive", category: "Retro Computing / Abandonware", content: "Explore archived versions of websites from the past.", createdAt: { seconds: Math.floor(new Date('2025-05-08T09:52:00Z').getTime() / 1000) } },
             { id: 'retro_spacejam', title: "Space Jam (1996) Website", toolName: "Space Jam (1996)", toolLink: "https://www.spacejam.com/1996/", author: "Warner Bros.", category: "Retro Computing / Abandonware", content: "The original, preserved website for the 1996 movie Space Jam.", createdAt: { seconds: Math.floor(new Date('2025-05-08T09:51:00Z').getTime() / 1000) } },
@@ -835,20 +882,13 @@
             { id: 'classicreload', title: "ClassicReload - Play DOS Games Online", toolName: "ClassicReload", toolLink: "https://classicreload.com/", author: "ClassicReload", category: "Retro Computing / Abandonware", content: "Play over 6,000 classic DOS games and more in your browser for free.", createdAt: { seconds: Math.floor(new Date('2025-05-08T09:46:00Z').getTime() / 1000) } },
             { id: 'ia_software', title: "Internet Archive - Software Collection", toolName: "IA Software Collection", toolLink: "https://archive.org/details/software", author: "Internet Archive", category: "Retro Computing / Abandonware", content: "A vast collection of emulated software, games, and applications from various platforms.", createdAt: { seconds: Math.floor(new Date('2025-05-08T09:45:00Z').getTime() / 1000) } },
         ];
-
-
+    
         const postsContainer = document.getElementById('postsContainer');
-        const addPostFormEl = document.getElementById('addPostForm'); 
-        const addPostFormContainer = document.getElementById('addPostFormContainer');
-        const closeAddPostFormBtn = document.getElementById('closeAddPostFormBtn');
-        const cancelAddPostBtn = document.getElementById('cancelAddPostBtn');
+        const suggestToolFormEl = document.getElementById('suggestToolForm'); 
+        const suggestToolFormContainer = document.getElementById('suggestToolFormContainer');
+        const closeSuggestToolFormBtn = document.getElementById('closeSuggestToolFormBtn');
+        const cancelSuggestToolBtn = document.getElementById('cancelSuggestToolBtn');
         
-        const aiResponseDialog = document.getElementById('aiResponseDialog');
-        const aiResponseDialogTitle = document.getElementById('aiResponseDialogTitle');
-        const aiResponseDialogContent = document.getElementById('aiResponseDialogContent');
-        const closeAiResponseDialogBtn = document.getElementById('closeAiResponseDialogBtn');
-        const okAiResponseDialogBtn = document.getElementById('okAiResponseDialogBtn');
-
         const genericDialog = document.getElementById('genericDialog');
         const genericDialogTitle = document.getElementById('genericDialogTitle');
         const genericDialogContent = document.getElementById('genericDialogContent');
@@ -1001,11 +1041,11 @@
             fetchAndDisplayPosts(); 
         });
         
-        document.getElementById('showSuggestToolFormBtn')?.addEventListener('click', () => { // Changed ID
-            document.getElementById('suggestToolFormContainer').style.display = 'block'; // Changed ID
+        document.getElementById('showSuggestToolFormBtn')?.addEventListener('click', () => { 
+            suggestToolFormContainer.style.display = 'block'; 
             statusText.textContent = "Suggest New Tool dialog opened.";
-            if(document.getElementById('suggestToolForm') && document.getElementById('suggestToolForm').suggestToolName) { // Changed ID
-                document.getElementById('suggestToolForm').suggestToolName.focus();
+            if(suggestToolFormEl && suggestToolFormEl.suggestToolName) { 
+                suggestToolFormEl.suggestToolName.focus();
             }
             if (activeMenu) { 
                 activeMenu.style.display = 'none';
@@ -1015,35 +1055,25 @@
         });
 
 
-        const closeSuggestToolForm = () => { // Renamed function
-            document.getElementById('suggestToolFormContainer').style.display = 'none'; // Changed ID
-            if(document.getElementById('suggestToolForm')) document.getElementById('suggestToolForm').reset(); // Changed ID
+        const closeSuggestToolForm = () => { 
+            suggestToolFormContainer.style.display = 'none'; 
+            if(suggestToolFormEl) suggestToolFormEl.reset(); 
             statusText.textContent = "Ready";
         }
-        document.getElementById('closeSuggestToolFormBtn')?.addEventListener('click', closeSuggestToolForm); // Changed ID
-        document.getElementById('cancelSuggestToolBtn')?.addEventListener('click', closeSuggestToolForm); // Changed ID
+        document.getElementById('closeSuggestToolFormBtn')?.addEventListener('click', closeSuggestToolForm); 
+        document.getElementById('cancelSuggestToolBtn')?.addEventListener('click', closeSuggestToolForm); 
         
-        const closeAiDialog = () => {
-            if(aiResponseDialog) aiResponseDialog.style.display = 'none';
-            if(aiResponseDialogContent) aiResponseDialogContent.innerHTML = ''; 
-            statusText.textContent = "Ready";
-        }
-        if(closeAiResponseDialogBtn) closeAiResponseDialogBtn.addEventListener('click', closeAiDialog);
-        if(okAiResponseDialogBtn) okAiResponseDialogBtn.addEventListener('click', closeAiDialog);
+        const suggestionsCollectionPath = `artifacts/${appId}/public/data/tool_suggestions`; 
 
-
-        const suggestionsCollectionPath = `artifacts/${appId}/public/data/tool_suggestions`; // New collection path
-
-        const suggestToolFormEl = document.getElementById('suggestToolForm'); // Changed ID
         if(suggestToolFormEl) {
             suggestToolFormEl.addEventListener('submit', async (e) => {
                 e.preventDefault();
-                if (!userId || userId === 'local-user') {  // Check if not authenticated or in local mode
+                if (!userId || userId === 'local-user') {  
                     showGenericDialog("Suggestion Disabled", "<p>Tool suggestion is disabled in local/offline mode. Please deploy the site to enable this feature with Firebase.</p>");
                     return; 
                 }
                 const toolName = suggestToolFormEl.suggestToolName.value.trim();
-                const toolLink = suggestToolFormEl.suggestToolLink.value.trim(); // Optional
+                const toolLink = suggestToolFormEl.suggestToolLink.value.trim(); 
                 const reason = suggestToolFormEl.suggestReason.value.trim();
 
                 if (!toolName || !reason) {
@@ -1055,11 +1085,11 @@
                 try {
                     await addDoc(collection(db, suggestionsCollectionPath), { 
                         toolName, 
-                        toolLink: toolLink || '', // Store empty string if not provided
+                        toolLink: toolLink || '', 
                         reason, 
                         suggestedAt: serverTimestamp(), 
                         suggesterId: userId,
-                        status: 'pending' // For potential review workflow
+                        status: 'pending' 
                     });
                     statusText.textContent = "Suggestion submitted successfully! Thank you.";
                     showGenericDialog("Suggestion Submitted", "<p>Your tool suggestion has been received. Thank you!</p>");
@@ -1072,7 +1102,7 @@
             });
         }
         
-        const categoriesForForm = [ // Updated to reflect remaining main categories
+        const categoriesForForm = [ 
             "Adblocking / Privacy", "Android / iOS", "Artificial Intelligence", 
             "Books / Comics / Manga", "Downloading", "Educational", "Gaming / Emulation", 
             "Linux / macOS", "Miscellaneous",
@@ -1081,79 +1111,13 @@
             "Torrenting"
         ];
 
-
-        async function callGeminiAPI(prompt) {
-            statusText.textContent = "✨ AI is thinking...";
-            showAiResponseDialog("AI is Working...", "<p style='text-align:center; padding:20px;'><i>Please wait while the AI processes your request...</i></p>");
-
-            let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
-            const payload = { contents: chatHistory };
-            const apiKey = ""; 
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-            try {
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    console.error("Gemini API Error:", errorData);
-                    throw new Error(`API Error (${response.status}): ${errorData?.error?.message || 'Unknown error'}`);
-                }
-                const result = await response.json();
-                
-                if (result.candidates && result.candidates.length > 0 &&
-                    result.candidates[0].content && result.candidates[0].content.parts &&
-                    result.candidates[0].content.parts.length > 0) {
-                    statusText.textContent = "✨ AI has responded!";
-                    return result.candidates[0].content.parts[0].text;
-                } else {
-                    console.error("Unexpected Gemini API response structure:", result);
-                    throw new Error("AI response format was unexpected.");
-                }
-            } catch (error) {
-                console.error("Error calling Gemini API:", error);
-                statusText.textContent = "Error with AI request.";
-                showAiResponseDialog("AI Error", `<p style='color:red; padding:10px;'>Could not get a response from the AI. ${error.message}</p>`);
-                return null; 
-            }
-        }
-
-        function showAiResponseDialog(title, contentHtml) {
-            if(aiResponseDialogTitle) aiResponseDialogTitle.textContent = title;
-            if(aiResponseDialogContent) aiResponseDialogContent.innerHTML = contentHtml.replace(/\n/g, "<br>");
-            if(aiResponseDialog) aiResponseDialog.style.display = 'block';
-        }
-
-        async function summarizeTool(toolName, toolDescription) {
-            const prompt = `Please provide a concise, one-paragraph summary for the following software tool, suitable for a retro tech blog. Tool Name: "${toolName}". Description: "${toolDescription}"`;
-            const summary = await callGeminiAPI(prompt);
-            if (summary) {
-                showAiResponseDialog(`✨ AI Summary: ${toolName}`, summary);
-            }
-        }
-
-        async function getUsageIdeas(toolName, toolDescription) {
-            const prompt = `List 3 to 5 potential usage ideas or interesting applications for the software tool named "${toolName}". The tool's description is: "${toolDescription}". Present the ideas as a bulleted or numbered list.`;
-            const ideas = await callGeminiAPI(prompt);
-            if (ideas) {
-                showAiResponseDialog(`✨ Usage Ideas: ${toolName}`, ideas);
-            }
-        }
-
         async function fetchAndDisplayPosts(category = null, sortCriteria = currentSortCriteria, searchTerm = null) {
-            // Removed the userId check that was causing the "User not authenticated" error for local viewing
-            // Firebase dependent features like saving suggestions will still require live deployment.
-            
             currentSortCriteria = sortCriteria; 
             currentSearchTerm = searchTerm ? searchTerm.toLowerCase() : null; 
 
-            let queryConstraints = []; // This would be used for Firebase queries
+            let queryConstraints = [];
             if (category) {
                 currentCategoryFilter = category;
-                // queryConstraints.push(where("category", "==", category)); // Firestore specific
                 statusText.textContent = `Loading tools for: ${category}...`;
             } else {
                 currentCategoryFilter = null;
@@ -1167,17 +1131,16 @@
             // Simulate fetching for local viewing by directly using defaultToolsData
             let postsArray = [];
             
-            if (typeof firebase !== 'undefined' && auth.currentUser) { // Check if Firebase is available and user is logged in
+            if (typeof firebase !== 'undefined' && auth.currentUser) { 
                 try {
                     const postsCollectionRef = collection(db, `artifacts/${appId}/public/data/tool_entries`); 
-                    const q = query(postsCollectionRef, ...queryConstraints); // Apply category filter if set
+                    const q = category ? query(postsCollectionRef, where("category", "==", category)) : query(postsCollectionRef);
                     const querySnapshot = await getDocs(q);
                     querySnapshot.forEach((doc) => {
                         postsArray.push({ id: doc.id, ...doc.data() });
                     });
                 } catch(firebaseError) {
                     console.warn("Firebase fetch failed (expected in local mode or if not configured):", firebaseError);
-                    // Continue to load default data if Firebase fails
                 }
             }
 
@@ -1186,7 +1149,7 @@
                 dp => !currentPostToolNames.has(dp.toolName.toLowerCase()) && 
                       (currentCategoryFilter === null || dp.category === currentCategoryFilter)
             );
-            postsArray = [...uniqueDefaultTools, ...postsArray]; // Combine DB data (if any) with unique defaults
+            postsArray = [...uniqueDefaultTools, ...postsArray];
 
             if (currentSearchTerm) {
                 postsArray = postsArray.filter(post => 
@@ -1195,7 +1158,6 @@
                     (post.content && post.content.toLowerCase().includes(currentSearchTerm))
                 );
             }
-
 
             if (postsContainer) postsContainer.innerHTML = ''; 
             if (loadingMessage) loadingMessage.style.display = 'none';
@@ -1206,7 +1168,19 @@
             } else if (currentCategoryFilter) {
                 headerHtml = `<h2>${currentCategoryFilter}</h2><p>Showing tools for the selected category. Sorted by ${currentSortCriteria.field === 'createdAt' ? 'Date' : 'Title'} (${currentSortCriteria.direction === 'asc' ? 'Oldest/A-Z' : 'Newest/Z-A'}).</p><hr class='win98-hr'>`;
             } else {
-                headerHtml = `<h2>All Tools</h2><p>Displaying all available tools. Sorted by ${currentSortCriteria.field === 'createdAt' ? 'Date' : 'Title'} (${currentSortCriteria.direction === 'asc' ? 'Oldest/A-Z' : 'Newest/Z-A'}).</p><hr class='win98-hr'>`;
+                headerHtml = `
+                    <h1>Welcome to the BAnsMax Archive!</h1>
+                    <p class="post-content" style="line-height: 1.6; margin-bottom: 10px;">
+                        Welcome to the Digital Resource Archive – a thoughtfully curated collection of valuable websites, applications, and tools, all presented with a distinctive retro aesthetic. This archive serves as a personal reference library, designed to assist you in discovering, exploring, and organising a wide range of digital resources to support your professional, creative, and personal projects.Navigate through the various categories listed on the left-hand menu to browse resources by topic or area of interest. Alternatively, use the search bar located in the top menu to quickly locate specific tools or applications.
+                    </p>
+                    <p class="post-content" style="line-height: 1.6; margin-bottom: 15px;">
+                        Should you wish to contribute to this growing collection, you are warmly invited to suggest additional resources via the "File" > "Suggest New Tool..." option in the menu.Enjoy this nostalgic journey through the world of digital tools – where classic design meets modern utility.
+                    </p>
+                    <hr class='win98-hr'>
+                    <h2>All Tools</h2>
+                    <p>Displaying all available tools. Sorted by ${currentSortCriteria.field === 'createdAt' ? 'Date' : 'Title'} (${currentSortCriteria.direction === 'asc' ? 'Oldest/A-Z' : 'Newest/Z-A'}).</p>
+                    <hr class='win98-hr'>
+                `;
             }
             if (postsContainer) postsContainer.insertAdjacentHTML('afterbegin', headerHtml);
 
@@ -1247,24 +1221,15 @@
                 const displayContent = post.content.replace(/</g, "<").replace(/>/g, ">").replace(/\n/g, "<br>");
 
                 const date = post.createdAt ? new Date(post.createdAt.seconds * 1000).toLocaleDateString() : 'N/A';
-                const summarizeBtnId = `summarizeBtn_${post.id || post.toolName.replace(/\s/g, '')}`; 
-                const usageIdeasBtnId = `usageIdeasBtn_${post.id || post.toolName.replace(/\s/g, '')}`;
-
+                
                 postElement.innerHTML = `
                     ${post.toolImage ? `<img src="${post.toolImage}" alt="${post.toolName}" class="tool-image" onerror="this.onerror=null; this.src='https://placehold.co/80x60/C0C0C0/FF0000?text=IMG_ERR';">` : ''}
                     <h3><a href="${post.toolLink}" target="_blank" rel="noopener noreferrer" class="win98-link">${post.title}</a></h3>
                     <p class="post-meta">Tool: ${post.toolName} | By: ${post.author} | Posted: ${date} | Category: ${post.category || 'N/A'}</p>
                     <div class="post-content"><p>${displayContent}</p></div>
                     <a href="${post.toolLink}" target="_blank" rel="noopener noreferrer" class="win98-button small">Visit Tool Site</a>
-                    <button id="${summarizeBtnId}" class="win98-button small">✨ Summarize</button>
-                    <button id="${usageIdeasBtnId}" class="win98-button small">✨ Usage Ideas</button>
                 `;
                 if (postsContainer) postsContainer.appendChild(postElement);
-
-                const summarizeButton = document.getElementById(summarizeBtnId);
-                if (summarizeButton) summarizeButton.addEventListener('click', () => summarizeTool(post.toolName, post.content)); 
-                const usageIdeasButton = document.getElementById(usageIdeasBtnId);
-                if (usageIdeasButton) usageIdeasButton.addEventListener('click', () => getUsageIdeas(post.toolName, post.content)); 
             });
             if (statusText) statusText.textContent = `Loaded ${postsArray.length} entries. Ready.`;
 
@@ -1413,7 +1378,7 @@
         document.getElementById('menuAbout')?.addEventListener('click', () => {
             const aboutContent = `
                 <p style="text-align:center; font-weight:bold;">BAnsMax Archive</p>
-                <p style="text-align:center;">Version 1.0</p> <hr class="win98-hr" style="margin: 10px 0;">
+                <p style="text-align:center;">Version 1.1.0</p> <hr class="win98-hr" style="margin: 10px 0;">
                 <p>A fine collection of retro and useful tools.</p>
                 <p>(c) ${new Date().getFullYear()} BAnsMax. All rights reserved (not really).</p>
             `;
